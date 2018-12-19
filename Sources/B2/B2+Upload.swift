@@ -31,7 +31,7 @@ extension B2 {
         let request = Request(using: client.container)
         request.http.method = .POST
         request.http.headers.add(name: "Authorization", value: auth.authorizationToken)
-        try request.content.encode(json: UploadUrlRequest(bucketId: config.bucketID))
+        try request.content.encode(json: UploadUrlRequest(bucketId: config.bucket.id))
         request.http.url = URL(string: auth.apiUrl + "/b2api/v2/b2_get_upload_url")!
         
         return client.send(request).flatMap { try $0.content.decode(UploadUrl.self) }
